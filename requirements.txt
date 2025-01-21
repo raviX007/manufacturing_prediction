@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+scikit-learn
+pandas
+numpy
+python-multipart
+python-jose
+passlib
+pydantic
+email-validator
+joblib
+pytest
+httpx
+black
+ruff
+isort
