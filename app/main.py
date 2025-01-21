@@ -4,11 +4,23 @@ from app.models.ml_model import MachineLearningModel
 from app.schemas.request_models import PredictionInput
 from app.schemas.response_models import PredictionOutput, TrainingOutput
 from app.utils.data_processor import DataProcessor
+from fastapi.middleware.cors import CORSMiddleware
+
+
+
 
 app = FastAPI(
     title="Manufacturing Prediction API",
     description="API for predicting machine downtime in manufacturing operations",
     version="1.0.0",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 ml_model = MachineLearningModel()
@@ -65,3 +77,5 @@ async def check_health():
     Health check endpoint
     """
     return {"message": "Manufacturing Prediction API is running"}
+
+
