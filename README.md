@@ -65,10 +65,10 @@ pip install -r requirements.txt
 4. Run the API
 
 ```bash
-uvicorn app.main:app --reload
+uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
 ```
 
-The API will be available at `http://127.0.0.1:8000`
+The Local API will be available at `http://0.0.0.0:8001`
 
 ## API Endpoints
 
@@ -77,24 +77,26 @@ The API will be available at `http://127.0.0.1:8000`
 Upload training data in CSV format.
 
 ```bash
-curl -X POST -F "file=@data/predictive_maintenance.csv" http://localhost:8001/upload
+curl -X POST -F "file=@data/predictive_maintenance.csv" http://0.0.0.0:8001/upload
 ```
 
 ### 2. Train Model (POST /train)
 
+#### Note: Training Takes Time (Approx 3 minutes).
+
 Train the model using the uploaded dataset.
 
 ```bash
-curl -X POST http://localhost:8001/train
+curl -X POST http://0.0.0.0:8001/train
 ```
 
 Response:
 
 ```json
 {
-  "accuracy": 0.983,
-  "f1_score": 0.679,
-  "training_time": 0.716
+  "accuracy": 0.984,
+  "f1_score": 0.6862745098039216,
+  "training_time": 136.29223227500916
 }
 ```
 
@@ -102,7 +104,7 @@ Response:
 
 Make predictions for potential machine failures.
 
-#### Example 1: Normal Operation
+#### Example :
 
 ```json
 {
@@ -125,34 +127,11 @@ Response:
 }
 ```
 
-#### Example 2: High Risk Operation
-
-```json
-{
-  "air_temperature": 308.5,
-  "process_temperature": 312.7,
-  "rotational_speed": 2200,
-  "torque": 70.0,
-  "tool_wear": 180,
-  "type": "M"
-}
-```
-
-Response:
-
-```json
-{
-  "failure_predicted": true,
-  "failure_type": "Failure Detected",
-  "confidence": 0.87
-}
-```
-
 ## Testing
 
-1. Access the Swagger UI documentation at `http://127.0.0.1:8000/docs`
+1. Access the Swagger UI documentation at `http://0.0.0.0:8001/docs`
 2. Use the interactive API documentation to test endpoints
-3. Alternative documentation available at `http://127.0.0.1:8000/redoc`
+3. Alternative documentation available at `http://0.0.0.0:8001/redoc`
 
 ## Technologies Used
 
